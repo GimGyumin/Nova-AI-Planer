@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Type } from "@google/genai";
@@ -2211,9 +2212,16 @@ const App = () => {
                     if (!b.deadline) return -1;
                     return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
                 case 'newest':
-                    // FIX: `b.id` or `a.id` could be a string, causing an error with the `-` operator.
-                    // Coerce them to numbers to ensure correct sorting.
-                    return Number(b.id) - Number(a.id);
+                    // FIX: `b.id` or `a.id` could be a string. To resolve a cryptic type error,
+                    // the numeric comparison is refactored to use explicit checks instead of subtraction,
+                    // which achieves the same result as `Number(b.id) - Number(a.id)`.
+                    if (Number(a.id) < Number(b.id)) {
+                        return 1;
+                    } else if (Number(a.id) > Number(b.id)) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
                 case 'alphabetical':
                     return a.wish.localeCompare(b.wish);
                 default:

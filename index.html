@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -17,6 +18,50 @@
 </script>
 </head>
   <body>
+    <!--
+      [DEPLOYMENT GUIDE FOR GITHUB PAGES]
+
+      GitHub Pages에 배포한 페이지가 표시되지 않는 문제를 해결하기 위한 안내입니다.
+      이 문제는 주로 두 가지 원인으로 발생합니다:
+      1. 경로 문제: 사이트가 하위 디렉토리(예: your-name.github.io/repo-name/)에 위치하여 CSS, JS 같은 파일들을 찾지 못하는 경우.
+      2. 빌드 과정 부재: 브라우저는 .tsx 파일을 직접 실행할 수 없으므로, JavaScript로 변환하는 '빌드' 과정이 필요합니다.
+
+      이 프로젝트는 Vite 기반으로 보입니다. 아래 단계에 따라 GitHub Pages 배포를 설정하세요.
+
+      1. 프로젝트 최상위 폴더에 `vite.config.js` 파일을 생성하세요.
+      --------------------------------------------------
+      import { defineConfig } from 'vite';
+      import react from '@vitejs/plugin-react';
+
+      // GitHub 리포지토리 이름을 변수에 저장합니다.
+      const repoName = 'Nova'; // <-- 중요: 이 부분을 실제 리포지토리 이름으로 변경하세요!
+
+      export default defineConfig({
+        plugins: [react()],
+        // 빌드 시 모든 파일 경로 앞에 리포지토리 이름이 붙도록 설정합니다.
+        base: `/${repoName}/`,
+      });
+      --------------------------------------------------
+
+      2. `package.json` 파일의 "scripts" 부분을 아래와 같이 수정(또는 추가)하세요.
+      --------------------------------------------------
+      "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist"
+      },
+      --------------------------------------------------
+
+      3. 터미널에서 gh-pages 패키지를 설치하세요.
+         npm install gh-pages --save-dev
+
+      4. 터미널에서 아래 명령어를 실행하여 사이트를 배포하세요.
+         npm run deploy
+
+      이 과정을 따르면 프로젝트가 올바르게 빌드되고, 모든 파일 경로가 자동으로 수정되어 GitHub Pages에서 정상적으로 표시됩니다.
+    -->
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
   </body>
