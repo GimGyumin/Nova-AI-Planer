@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Type } from "@google/genai";
@@ -2163,8 +2164,8 @@ const App = () => {
                   properties: {
                     sorted_order: {
                       type: Type.ARRAY,
-                      // Fix: Use INTEGER for IDs and make sorting logic robust to handle potential string values from the API.
-                      items: { type: Type.INTEGER }
+                      // Fix: Use NUMBER for IDs as Date.now() can be large, and make sorting logic robust to handle potential string values from the API.
+                      items: { type: Type.NUMBER }
                     },
                     reason: { type: Type.STRING }
                   }
@@ -2230,8 +2231,13 @@ const App = () => {
         });
     };
     
-    // FIX: A todo's id might be a string. Explicitly convert to number for sorting.
-    const sortedRecurring = recurring.sort((a,b) => Number(a.id) - Number(b.id));
+    // FIX (Line 1162): A todo's id might be a string. Explicitly convert to number for sorting.
+    // Replaced subtraction with a more robust comparison to avoid potential TypeScript errors with mixed types.
+    const sortedRecurring = recurring.sort((a,b) => {
+      if (Number(a.id) < Number(b.id)) return -1;
+      if (Number(a.id) > Number(b.id)) return 1;
+      return 0;
+    });
 
     return [...sortedRecurring, ...filterAndSortList(nonRecurring)];
 
