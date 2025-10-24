@@ -1684,144 +1684,243 @@ const SettingsModal: React.FC<{
     };
 
     const renderTabContent = () => {
-        switch (activeTab) {
-            case 'appearance':
-                return (
-                    <>
-                        <div className="settings-section-header">테마 모드</div>
-                        <div className="settings-section-body">
-                            <div className="settings-item nav-indicator" onClick={() => onThemeChange('light')}>
-                                <div>
-                                    <span>라이트 모드</span>
-                                    <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>항상 밝은 테마 사용</div>
+        try {
+            switch (activeTab) {
+                case 'appearance':
+                    return (
+                        <>
+                            <div className="settings-section-header">테마 모드</div>
+                            <div className="settings-section-body">
+                                <div className="settings-item nav-indicator" onClick={() => onThemeChange('light')}>
+                                    <div>
+                                        <span>라이트 모드</span>
+                                        <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>항상 밝은 테마 사용</div>
+                                    </div>
+                                    {themeMode === 'light' && icons.check}
                                 </div>
-                                {themeMode === 'light' && icons.check}
-                            </div>
-                            <div className="settings-item nav-indicator" onClick={() => onThemeChange('dark')}>
-                                <div>
-                                    <span>다크 모드</span>
-                                    <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>항상 어두운 테마 사용</div>
+                                <div className="settings-item nav-indicator" onClick={() => onThemeChange('dark')}>
+                                    <div>
+                                        <span>다크 모드</span>
+                                        <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>항상 어두운 테마 사용</div>
+                                    </div>
+                                    {themeMode === 'dark' && icons.check}
                                 </div>
-                                {themeMode === 'dark' && icons.check}
-                            </div>
-                            <div className="settings-item nav-indicator" onClick={() => onThemeChange('system')}>
-                                <div>
-                                    <span>시스템 설정 따라가기</span>
-                                    <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>기기의 다크모드 설정에 맞춰 자동 변경</div>
-                                </div>
-                                {themeMode === 'system' && icons.check}
-                            </div>
-                        </div>
-                        <div className="settings-section-header">{t('settings_background_header')}</div>
-                        <div className="settings-section-body">
-                           {backgroundOptions.map(option => (
-                                <div key={option.id} className="settings-item nav-indicator" onClick={() => onSetBackgroundTheme(option.id)}>
-                                    <span>{t(isDarkMode ? option.darkNameKey : option.lightNameKey)}</span>
-                                    {backgroundTheme === option.id && icons.check}
-                                </div>
-                            ))}
-                        </div>
-                    </>
-                );
-            case 'general':
-                return (
-                    <>
-                        <div className="settings-section-header">{t('settings_api_key')}</div>
-                        <div className="settings-section-body">
-                            <div className="settings-item">
-                                <input
-                                    type="password"
-                                    placeholder={t('settings_api_key_placeholder')}
-                                    value={apiKey}
-                                    onChange={(e) => onSetApiKey(e.target.value)}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid var(--border-color)', borderRadius: '4px', backgroundColor: 'var(--input-bg)' }}
-                                />
-                            </div>
-                            <label className="settings-item">
-                                <div>
-                                    <span>{t('settings_offline_mode')}</span>
-                                    <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>{t('settings_offline_mode_desc')}</div>
-                                </div>
-                                <div className="theme-toggle-switch">
-                                    <input type="checkbox" checked={isOfflineMode} onChange={onToggleOfflineMode} />
-                                    <span className="slider round"></span>
-                                </div>
-                            </label>
-                        </div>
-                        <div className="settings-section-header">{t('settings_language')}</div>
-                        <div className="settings-section-body">
-                            <div className="settings-item nav-indicator" onClick={() => onSetLanguage('ko')}><span>한국어</span>{language === 'ko' && icons.check}</div>
-                            <div className="settings-item nav-indicator" onClick={() => onSetLanguage('en')}><span>English</span>{language === 'en' && icons.check}</div>
-                        </div>
-                        <div className="settings-section-header">{t('settings_section_info')}</div>
-                        <div className="settings-section-body">
-                            <div className="settings-item nav-indicator" onClick={onOpenVersionInfo}>
-                                <span>{t('settings_version')}</span>
-                                <div className="settings-item-value-with-icon">
-                                    <span>1.2</span>
-                                    {icons.forward}
+                                <div className="settings-item nav-indicator" onClick={() => onThemeChange('system')}>
+                                    <div>
+                                        <span>시스템 설정 따라가기</span>
+                                        <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>기기의 다크모드 설정에 맞춰 자동 변경</div>
+                                    </div>
+                                    {themeMode === 'system' && icons.check}
                                 </div>
                             </div>
-                            <div className="settings-item nav-indicator" onClick={onOpenUsageGuide}>
-                                <span>{t('usage_guide_title')}</span>
-                                <div className="settings-item-value-with-icon">
-                                    {icons.forward}
+                            <div className="settings-section-header">{t('settings_background_header')}</div>
+                            <div className="settings-section-body">
+                               {backgroundOptions.map(option => (
+                                    <div key={option.id} className="settings-item nav-indicator" onClick={() => onSetBackgroundTheme(option.id)}>
+                                        <span>{t(isDarkMode ? option.darkNameKey : option.lightNameKey)}</span>
+                                        {backgroundTheme === option.id && icons.check}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    );
+                case 'general':
+                    return (
+                        <>
+                            <div className="settings-section-header">{t('settings_api_key')}</div>
+                            <div className="settings-section-body">
+                                <div className="settings-item">
+                                    <input
+                                        type="password"
+                                        placeholder={t('settings_api_key_placeholder')}
+                                        value={apiKey}
+                                        onChange={(e) => onSetApiKey(e.target.value)}
+                                        style={{ width: '100%', padding: '8px', border: '1px solid var(--border-color)', borderRadius: '4px', backgroundColor: 'var(--input-bg)' }}
+                                    />
+                                </div>
+                                <label className="settings-item">
+                                    <div>
+                                        <span>{t('settings_offline_mode')}</span>
+                                        <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '4px' }}>{t('settings_offline_mode_desc')}</div>
+                                    </div>
+                                    <div className="theme-toggle-switch">
+                                        <input type="checkbox" checked={isOfflineMode} onChange={onToggleOfflineMode} />
+                                        <span className="slider round"></span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div className="settings-section-header">{t('settings_language')}</div>
+                            <div className="settings-section-body">
+                                <div className="settings-item nav-indicator" onClick={() => onSetLanguage('ko')}><span>한국어</span>{language === 'ko' && icons.check}</div>
+                                <div className="settings-item nav-indicator" onClick={() => onSetLanguage('en')}><span>English</span>{language === 'en' && icons.check}</div>
+                            </div>
+                            <div className="settings-section-header">{t('settings_section_info')}</div>
+                            <div className="settings-section-body">
+                                <div className="settings-item nav-indicator" onClick={onOpenVersionInfo}>
+                                    <span>{t('settings_version')}</span>
+                                    <div className="settings-item-value-with-icon">
+                                        <span>1.2</span>
+                                        {icons.forward}
+                                    </div>
+                                </div>
+                                <div className="settings-item nav-indicator" onClick={onOpenUsageGuide}>
+                                    <span>{t('usage_guide_title')}</span>
+                                    <div className="settings-item-value-with-icon">
+                                        {icons.forward}
+                                    </div>
+                                </div>
+                                <div className="settings-item">
+                                    <span>{t('settings_developer')}</span>
+                                    <span className="settings-item-value">{t('developer_name')}</span>
+                                </div>
+                                 <div className="settings-item">
+                                    <span>{t('settings_copyright')}</span>
+                                    <span className="settings-item-value">{t('copyright_notice')}</span>
                                 </div>
                             </div>
-                            <div className="settings-item">
-                                <span>{t('settings_developer')}</span>
-                                <span className="settings-item-value">{t('developer_name')}</span>
-                            </div>
-                             <div className="settings-item">
-                                <span>{t('settings_copyright')}</span>
-                                <span className="settings-item-value">{t('copyright_notice')}</span>
-                            </div>
-                        </div>
-                    </>
-                );
-            case 'data':
-                return (
-                    <>
-                        <div className="settings-section-header">{t('settings_data_header')}</div>
-                        <div className="settings-section-body">
-                            <button className="settings-item action-item" onClick={onExportData} disabled={dataActionStatus !== 'idle'}><span className="action-text">{dataActionStatus === 'exporting' ? t('data_exporting') : t('settings_export_data')}</span></button>
-                            <button className="settings-item action-item" onClick={() => fileInputRef.current?.click()} disabled={dataActionStatus !== 'idle'}><span className="action-text">{dataActionStatus === 'importing' ? t('data_importing') : t('settings_import_data')}</span><input type="file" ref={fileInputRef} onChange={onImportData} accept=".json" style={{ display: 'none' }} /></button>
-                        </div>
-
-                        <div className="settings-section-header">{t('settings_share_link_header')}</div>
-                        <div className="settings-section-body">
-                            {!shareableLink && (
+                        </>
+                    );
+                case 'data':
+                    return (
+                        <>
+                            <div className="settings-section-header">{t('settings_data_header') || '데이터 관리'}</div>
+                            <div className="settings-section-body">
                                 <button 
                                     className="settings-item action-item" 
-                                    onClick={handleCreateShareLink}
-                                    disabled={isGeneratingLink}
+                                    onClick={onExportData} 
+                                    disabled={dataActionStatus !== 'idle'}
                                 >
                                     <span className="action-text">
-                                        {isGeneratingLink ? '🔗 단축 URL 생성 중...' : t('settings_generate_link')}
+                                        {dataActionStatus === 'exporting' ? (t('data_exporting') || '내보내는 중...') : (t('settings_export_data') || '내보내기')}
                                     </span>
                                 </button>
-                            )}
-                            {shareableLink && (
-                                <div className="share-link-container">
-                                    <div style={{ marginBottom: '8px', fontSize: '12px', opacity: 0.7 }}>
-                                        {shareableLink.length < 100 ? '📎 단축 URL' : '🔗 일반 링크'} 
-                                        ({shareableLink.length}자)
-                                    </div>
-                                    <input type="text" readOnly value={shareableLink} onClick={(e) => (e.target as HTMLInputElement).select()} />
-                                    <button onClick={handleCopyLink}>{t('settings_copy_link')}</button>
-                                </div>
-                            )}
-                        </div>
+                                <button 
+                                    className="settings-item action-item" 
+                                    onClick={() => {
+                                        try {
+                                            fileInputRef.current?.click();
+                                        } catch (error) {
+                                            console.error('File input click error:', error);
+                                        }
+                                    }} 
+                                    disabled={dataActionStatus !== 'idle'}
+                                >
+                                    <span className="action-text">
+                                        {dataActionStatus === 'importing' ? (t('data_importing') || '가져오는 중...') : (t('settings_import_data') || '가져오기')}
+                                    </span>
+                                    <input 
+                                        type="file" 
+                                        ref={fileInputRef} 
+                                        onChange={onImportData} 
+                                        accept=".json" 
+                                        style={{ display: 'none' }} 
+                                    />
+                                </button>
+                            </div>
 
-                        <div className="settings-section-header">{t('settings_delete_account')}</div>
-                        <div className="settings-section-body">
-                            <button className="settings-item action-item" onClick={handleDeleteClick} disabled={dataActionStatus !== 'idle'}>
-                                <span className="action-text destructive">{dataActionStatus === 'deleting' ? t('data_deleting') : t('settings_delete_account')}</span>
+                            <div className="settings-section-header">{t('settings_share_link_header') || '링크로 공유'}</div>
+                            <div className="settings-section-body">
+                                {!shareableLink && (
+                                    <button 
+                                        className="settings-item action-item" 
+                                        onClick={() => {
+                                            try {
+                                                handleCreateShareLink();
+                                            } catch (error) {
+                                                console.error('Share link creation error:', error);
+                                                setToastMessage('공유 링크 생성 중 오류가 발생했습니다.');
+                                            }
+                                        }}
+                                        disabled={isGeneratingLink}
+                                    >
+                                        <span className="action-text">
+                                            {isGeneratingLink ? '🔗 단축 URL 생성 중...' : (t('settings_generate_link') || '공유 링크 생성')}
+                                        </span>
+                                    </button>
+                                )}
+                                {shareableLink && (
+                                    <div className="share-link-container">
+                                        <div style={{ marginBottom: '8px', fontSize: '12px', opacity: 0.7 }}>
+                                            {shareableLink.length < 100 ? '📎 단축 URL' : '🔗 일반 링크'} 
+                                            ({shareableLink.length}자)
+                                        </div>
+                                        <input type="text" readOnly value={shareableLink} onClick={(e) => (e.target as HTMLInputElement).select()} />
+                                        <button onClick={() => {
+                                            try {
+                                                handleCopyLink();
+                                            } catch (error) {
+                                                console.error('Copy link error:', error);
+                                            }
+                                        }}>{t('settings_copy_link') || '링크 복사'}</button>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="settings-section-header">{t('settings_delete_account') || '모든 데이터 삭제'}</div>
+                            <div className="settings-section-body">
+                                <button 
+                                    className="settings-item action-item" 
+                                    onClick={() => {
+                                        try {
+                                            handleDeleteClick();
+                                        } catch (error) {
+                                            console.error('Delete click error:', error);
+                                        }
+                                    }} 
+                                    disabled={dataActionStatus !== 'idle'}
+                                >
+                                    <span className="action-text destructive">
+                                        {dataActionStatus === 'deleting' ? (t('data_deleting') || '삭제 중...') : (t('settings_delete_account') || '모든 데이터 삭제')}
+                                    </span>
+                                </button>
+                            </div>
+                        </>
+                    );
+                default: 
+                    return (
+                        <div style={{ padding: '20px', textAlign: 'center' }}>
+                            <p>설정을 로드하는 중 오류가 발생했습니다.</p>
+                            <button 
+                                onClick={() => setActiveTab('appearance')}
+                                style={{ 
+                                    marginTop: '10px', 
+                                    padding: '8px 16px', 
+                                    backgroundColor: 'var(--primary-color)', 
+                                    color: 'white', 
+                                    border: 'none', 
+                                    borderRadius: '4px',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                외관 설정으로 이동
                             </button>
                         </div>
-                    </>
-                );
-            default: return null;
+                    );
+            }
+        } catch (error) {
+            console.error('Settings tab rendering error:', error);
+            return (
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p>설정 탭을 표시하는 중 오류가 발생했습니다.</p>
+                    <p style={{ fontSize: '12px', color: 'red', marginTop: '10px' }}>
+                        오류: {error instanceof Error ? error.message : '알 수 없는 오류'}
+                    </p>
+                    <button 
+                        onClick={() => setActiveTab('appearance')}
+                        style={{ 
+                            marginTop: '10px', 
+                            padding: '8px 16px', 
+                            backgroundColor: 'var(--primary-color)', 
+                            color: 'white', 
+                            border: 'none', 
+                            borderRadius: '4px',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        외관 설정으로 이동
+                    </button>
+                </div>
+            );
         }
     }
     
