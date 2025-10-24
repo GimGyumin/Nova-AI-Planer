@@ -1,17 +1,17 @@
 :root {
-  --font-family-sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   
   /* Light Mode Colors (Fallback) */
   --main-bg-color: #fff;
   --text-color: #000000;
   --text-secondary-color: #333333;
   --border-color: rgba(0, 0, 0, 0.12);
-  --primary-color: #1976d2;
-  --primary-color-hover: #1565c0;
-  --danger-color: #dc3545;
-  --danger-color-hover: #c82333;
-  --success-color: #28a745;
-  --modal-backdrop-color: rgba(0, 0, 0, 0.3);
+  --primary-color: #007aff;
+  --primary-color-hover: #0056b3;
+  --danger-color: #ff3b30;
+  --danger-color-hover: #d32f2f;
+  --success-color: #34c759;
+  --modal-backdrop-color: rgba(0, 0, 0, 0.5);
   --button-text-color: #000000;
   --drop-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   --drop-shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -36,40 +36,40 @@
   --icon-color-gray: rgb(142, 142, 147);
 }
 
-body.dark-mode {
+.dark-mode {
   /* Dark Mode Colors (Fallback) */
-  --main-bg-color: #000 !important;
-  --text-color: #ffffff !important;
-  --text-secondary-color: #bbbbbb !important;
-  --border-color: rgba(255, 255, 255, 0.15) !important;
-  --primary-color: #42a5f5 !important;
-  --primary-color-hover: #1e88e5 !important;
-  --danger-color: #ef5350 !important;
-  --danger-color-hover: #e53935 !important;
-  --success-color: #66bb6a !important;
-  --modal-backdrop-color: rgba(0, 0, 0, 0.5) !important;
-  --button-text-color: #ffffff !important;
-  --drop-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
-  --drop-shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
-  --text-shadow: none !important;
-  --popover-separator-color: rgba(84, 84, 88, 0.65) !important;
-  --panel-bg-solid: #1c1c1e !important;
-  --bg-secondary-color: var(--panel-bg-solid) !important;
-  --button-bg-color: var(--panel-bg-solid) !important;
-  --alert-bg-color: rgba(44, 44, 46, 0.95) !important;
-  --alert-button-secondary-bg: #48484a !important;
-  --input-bg-color: #2c2c2e !important;
-  --settings-bg-color: #000000 !important;
-  --settings-section-bg-color: #1c1c1e !important;
-  --settings-glass-bg: rgba(0, 0, 0, 0.75) !important;
+  --main-bg-color: #000;
+  --text-color: #ffffff;
+  --text-secondary-color: #bbbbbb;
+  --border-color: rgba(255, 255, 255, 0.15);
+  --primary-color: #0a84ff;
+  --primary-color-hover: #0060df;
+  --danger-color: #ff453a;
+  --danger-color-hover: #e03a32;
+  --success-color: #30d158;
+  --modal-backdrop-color: rgba(0, 0, 0, 0.7);
+  --button-text-color: #ffffff;
+  --drop-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --drop-shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --text-shadow: none;
+  --popover-separator-color: rgba(84, 84, 88, 0.65);
+  --panel-bg-solid: #1c1c1e;
+  --bg-secondary-color: var(--panel-bg-solid);
+  --button-bg-color: var(--panel-bg-solid);
+  --alert-bg-color: rgba(44, 44, 46, 0.95);
+  --alert-button-secondary-bg: #48484a;
+  --input-bg-color: #2c2c2e;
+  --settings-bg-color: #000000;
+  --settings-section-bg-color: #1c1c1e;
+  --settings-glass-bg: rgba(0, 0, 0, 0.75);
 
   /* Settings Icon Colors */
-  --icon-color-indigo: rgb(94, 92, 230) !important;
-  --icon-color-pink: rgb(255, 55, 95) !important;
-  --icon-color-blue: rgb(10, 132, 255) !important;
-  --icon-color-green: rgb(48, 209, 88) !important;
-  --icon-color-red: rgb(255, 69, 58) !important;
-  --icon-color-gray: rgb(142, 142, 147) !important;
+  --icon-color-indigo: rgb(94, 92, 230);
+  --icon-color-pink: rgb(255, 55, 95);
+  --icon-color-blue: rgb(10, 132, 255);
+  --icon-color-green: rgb(48, 209, 88);
+  --icon-color-red: rgb(255, 69, 58);
+  --icon-color-gray: rgb(142, 142, 147);
 }
 
 
@@ -98,27 +98,27 @@ body {
 /* --- BACKGROUND THEMES --- */
 
 /* Default (Simple) Theme */
-body.bg-solid-default:not(.dark-mode) {
-  --main-bg-color: #f5f5f5;
+body.bg-solid-default {
+  --main-bg-color: #f2f2f7;
   --bg-secondary-color: #ffffff;
   --button-bg-color: #ffffff;
-  --input-bg-color: #e8e8e8;
+  --input-bg-color: #e5e5ea;
   --text-color: #000000;
-  --text-secondary-color: #424242;
-  --border-color: rgba(0, 0, 0, 0.12);
-  --primary-color: #1976d2;
-  --primary-color-hover: #1565c0;
+  --text-secondary-color: #3c3c43;
+  --border-color: rgba(60, 60, 67, 0.29);
+  --primary-color: #007aff;
+  --primary-color-hover: #0056b3;
 }
-body.dark-mode.bg-solid-default {
-  --main-bg-color: #121212;
-  --bg-secondary-color: #1e1e1e;
-  --button-bg-color: #1e1e1e;
-  --input-bg-color: #2d2d2d;
+.dark-mode.bg-solid-default {
+  --main-bg-color: #000000;
+  --bg-secondary-color: #1c1c1e;
+  --button-bg-color: #1c1c1e;
+  --input-bg-color: #2c2c2e;
   --text-color: #ffffff;
-  --text-secondary-color: #b0b0b0;
-  --border-color: rgba(255, 255, 255, 0.12);
-  --primary-color: #42a5f5;
-  --primary-color-hover: #1e88e5;
+  --text-secondary-color: #8e8e93;
+  --border-color: rgba(84, 84, 88, 0.65);
+  --primary-color: #0a84ff;
+  --primary-color-hover: #0060df;
 }
 
 /* Pink Theme */
@@ -134,7 +134,7 @@ body:not(.dark-mode).bg-solid-pink {
   --primary-color: #e5396b;
   --primary-color-hover: #c42754;
 }
-body.dark-mode.bg-solid-pink {
+.dark-mode.bg-solid-pink {
   --main-bg-color: #5c1f30;
   --bg-secondary-color: #4a1926;
   --button-bg-color: #4a1926;
@@ -160,7 +160,7 @@ body:not(.dark-mode).bg-solid-blue {
   --primary-color: #007aff;
   --primary-color-hover: #0056b3;
 }
-body.dark-mode.bg-solid-blue {
+.dark-mode.bg-solid-blue {
   --main-bg-color: #1a344f;
   --bg-secondary-color: #14293f;
   --button-bg-color: #14293f;
@@ -186,7 +186,7 @@ body:not(.dark-mode).bg-solid-green {
   --primary-color: #34c759;
   --primary-color-hover: #29a047;
 }
-body.dark-mode.bg-solid-green {
+.dark-mode.bg-solid-green {
   --main-bg-color: #204a31;
   --bg-secondary-color: #1a3b27;
   --button-bg-color: #1a3b27;
@@ -212,7 +212,7 @@ body:not(.dark-mode).bg-solid-purple {
   --primary-color: #8e44ad;
   --primary-color-hover: #7d3c98;
 }
-body.dark-mode.bg-solid-purple {
+.dark-mode.bg-solid-purple {
   --main-bg-color: #3c2c5a;
   --bg-secondary-color: #31234a;
   --button-bg-color: #31234a;
@@ -258,13 +258,13 @@ button {
 }
 
 button:hover {
-  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 button:active, .more-button:active, .ai-info-button:active {
-  transform: scale(0.98) !important;
-  opacity: 0.7;
-  transition-duration: 0.1s;
+  transform: scale(0.96) !important;
+  opacity: 0.8;
+  transition-duration: 0.05s;
 }
 
 button:disabled {
@@ -287,7 +287,7 @@ input, textarea {
   background-color: var(--input-bg-color);
   color: var(--text-color);
   font-size: 1rem;
-  border-radius: 8px;
+  border-radius: 22px;
 }
 input::placeholder, textarea::placeholder {
   color: var(--text-secondary-color);
@@ -485,7 +485,7 @@ header {
   background: var(--bg-secondary-color);
   box-shadow: var(--drop-shadow-popover);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 28px;
   overflow: hidden;
   
   transform-origin: top right;
@@ -596,7 +596,7 @@ li {
   background: var(--bg-secondary-color);
   border: 1px solid var(--border-color);
   box-shadow: var(--drop-shadow);
-  border-radius: 12px;
+  border-radius: 28px;
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
@@ -864,7 +864,7 @@ li.selection-mode.selected .checkbox-container .checkmark:after {
   padding: 32px 20px;
   background: var(--bg-secondary-color);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 28px;
   box-shadow: var(--drop-shadow);
 }
 .empty-message p {
@@ -936,7 +936,7 @@ li.selection-mode.selected .checkbox-container .checkmark:after {
   width: 90%;
   max-width: 320px;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 28px;
   background: var(--alert-bg-color);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -1179,44 +1179,6 @@ li.selection-mode.selected .checkbox-container .checkmark:after {
     gap: 8px;
     color: var(--text-secondary-color);
 }
-
-/* Usage Guide Styles */
-.usage-guide-content {
-    padding: 0;
-}
-
-.usage-guide-item {
-    margin-bottom: 24px;
-    padding: 16px 0;
-}
-
-.usage-guide-item:not(:last-child) {
-    border-bottom: 1px solid var(--border-color);
-}
-
-.usage-guide-item h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 8px;
-}
-
-.usage-guide-item p {
-    color: var(--text-secondary-color);
-    font-size: 0.95rem;
-    line-height: 1.5;
-    white-space: pre-line;
-}
-
-.guide-link {
-    color: var(--primary-color);
-    text-decoration: underline;
-    font-size: 0.9rem;
-}
-
-.guide-link:hover {
-    opacity: 0.8;
-}
 .settings-item-value-with-icon svg {
     width: 16px;
     height: 16px;
@@ -1227,16 +1189,6 @@ li.selection-mode.selected .checkbox-container .checkmark:after {
 .action-item { justify-content: center; cursor: pointer; }
 .action-text { color: var(--primary-color); font-weight: 500; }
 .action-text.destructive { color: var(--danger-color); }
-
-.api-key-item {
-    padding: 16px !important;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-.api-key-item input {
-    margin: 0;
-}
 
 .share-link-container {
   display: flex;
@@ -1463,7 +1415,7 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
 
 /* Calendar View */
 .calendar-view-active .container { max-width: 900px; }
-.calendar-view-container { margin-top: 20px; background-color: var(--bg-secondary-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; }
+.calendar-view-container { margin-top: 20px; background-color: var(--bg-secondary-color); border: 1px solid var(--border-color); border-radius: 28px; padding: 20px; }
 .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .calendar-header h2 { font-size: 1.5rem; }
 .calendar-header button { color: var(--text-color); }
@@ -1491,13 +1443,6 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
 .version-info-modal {
     padding: 24px;
 }
-
-/* Usage Guide Modal */
-.usage-guide-modal {
-    padding: 24px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
 .version-info-header {
     text-align: center;
     margin-bottom: 24px;
@@ -1522,11 +1467,6 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    margin-bottom: 24px;
-}
-
-.changelog-item:last-child {
-    margin-bottom: 0;
 }
 .changelog-icon {
     flex-shrink: 0;
@@ -1545,51 +1485,15 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
 }
 .changelog-text h3 {
     font-size: 1.1rem;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-color);
+    margin-bottom: 4px;
 }
 .changelog-text p {
     color: var(--text-secondary-color);
     font-size: 0.95rem;
-    white-space: pre-line;
-    line-height: 1.5;
 }
-
-.changelog-text p a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.changelog-text p a:hover {
-    text-decoration: underline;
-}
-
-
 .version-info-modal .modal-buttons {
     margin-top: 24px;
 }
-.usage-guide-section {
-    margin-top: 32px;
-}
-
-.section-divider {
-    height: 1px;
-    background-color: var(--border-color);
-    margin: 32px 0 24px 0;
-}
-
-.guide-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.guide-link:hover {
-    text-decoration: underline;
-}
-
 .version-info-modal .modal-buttons button {
     width: 100%;
     padding: 14px;
@@ -1597,7 +1501,7 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
     color: white;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 22px;
 }
 
 
@@ -1620,17 +1524,6 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
 
   .modal-content:not(.settings-modal) { width: calc(100% - 24px); }
   .calendar-view-mode-selector .calendar-view-button-month { display: none; }
-  
-  /* 모바일에서 설정 입력 필드 최적화 */
-  .settings-item input[type="password"] {
-    font-size: 16px !important; /* 모바일에서 줌 방지 */
-    padding: 12px 8px !important;
-  }
-  
-  /* 모바일에서 토글 스위치 크기 개선 */
-  .theme-toggle-switch {
-    transform: scale(1.1);
-  }
 }
 
 /* Home screen background effect when a modal is open */
@@ -1654,36 +1547,5 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
         transform: none;
         border-radius: 0;
         box-shadow: none;
-    }
-    
-    /* 모바일 터치 최적화 */
-    button, .settings-item, .popover-action-button {
-        min-height: 44px; /* 권장 터치 영역 크기 */
-        -webkit-tap-highlight-color: transparent; /* 탭 하이라이트 제거 */
-    }
-    
-    /* 모바일에서 스크롤 개선 */
-    .modal-content {
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-    }
-    
-    /* 링크 공유 입력 필드 모바일 최적화 */
-    .share-link-container {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .share-link-container input {
-        width: 100%;
-        margin-bottom: 8px;
-        font-size: 14px;
-        word-break: break-all;
-    }
-    
-    /* 모바일에서 설정 섹션 간격 조정 */
-    .settings-section-header {
-        padding: 16px 0 8px 0;
-        margin-top: 16px;
     }
 }
