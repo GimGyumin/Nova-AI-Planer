@@ -670,90 +670,16 @@ const createShortUrl = async (longUrl: string): Promise<string> => {
         return longUrl;
     }
     
-    const shortUrlServices = [
-        // 1. is.gd API 사용
-        {
-            name: 'is.gd',
-            createUrl: async (url: string) => {
-                const response = await fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`);
-                if (!response.ok) throw new Error('is.gd API failed');
-                const shortUrl = await response.text();
-                if (shortUrl.includes('Error') || !shortUrl.startsWith('http')) {
-                    throw new Error('Invalid response from is.gd');
-                }
-                return shortUrl.trim();
-            }
-        },
-        // 2. TinyURL JSONP fallback
-        {
-            name: 'tinyurl',
-            createUrl: async (url: string) => {
-                return new Promise((resolve, reject) => {
-                    const callbackName = `tinyurl_${Date.now()}`;
-                    const script = document.createElement('script');
-                    
-                    const timeout = setTimeout(() => {
-                        cleanup();
-                        reject(new Error('TinyURL timeout'));
-                    }, 5000);
-                    
-                    const cleanup = () => {
-                        clearTimeout(timeout);
-                        if (script.parentNode) {
-                            document.head.removeChild(script);
-                        }
-                        delete (window as any)[callbackName];
-                    };
-                    
-                    (window as any)[callbackName] = (result: any) => {
-                        cleanup();
-                        if (result && typeof result === 'string' && !result.includes('Error') && result.startsWith('http')) {
-                            resolve(result.trim());
-                        } else {
-                            reject(new Error('Invalid TinyURL response'));
-                        }
-                    };
-                    
-                    script.onerror = () => {
-                        cleanup();
-                        reject(new Error('TinyURL script load failed'));
-                    };
-                    
-                    script.src = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}&callback=${callbackName}`;
-                    document.head.appendChild(script);
-                });
-            }
-        },
-        // 3. v.gd API 사용
-        {
-            name: 'v.gd',
-            createUrl: async (url: string) => {
-                const response = await fetch(`https://v.gd/create.php?format=simple&url=${encodeURIComponent(url)}`);
-                if (!response.ok) throw new Error('v.gd API failed');
-                const shortUrl = await response.text();
-                if (shortUrl.includes('Error') || !shortUrl.startsWith('http')) {
-                    throw new Error('Invalid response from v.gd');
-                }
-                return shortUrl.trim();
-            }
-        }
-    ];
-    
-    // 각 서비스를 순차적으로 시도
-    for (const service of shortUrlServices) {
-        try {
-            console.log(`Trying ${service.name} for URL shortening...`);
-            const shortUrl = await service.createUrl(longUrl);
-            console.log(`✅ ${service.name} success:`, shortUrl);
-            return shortUrl as string;
-        } catch (error) {
-            console.warn(`❌ ${service.name} failed:`, error);
-            continue;
-        }
+    // URL 단축 기능을 간단하게 변경 - CORS 문제 해결을 위해 외부 API 사용 중단
+    // 대신 URL이 너무 길 경우 사용자에게 알림을 제공
+    const urlLength = longUrl.length;
+    if (urlLength > 2000) {
+        console.warn('⚠️ URL이 매우 깁니다. 일부 플랫폼에서 제한이 있을 수 있습니다.');
+        // 긴 URL에 대한 사용자 친화적 처리
+        return longUrl;
     }
     
-    // 모든 서비스 실패 시 원본 URL 반환
-    console.warn('All URL shortening services failed, using original URL');
+    console.log('✅ URL 공유 준비 완료 (길이:', urlLength, '문자)');
     return longUrl;
 };
 
