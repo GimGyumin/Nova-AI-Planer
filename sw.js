@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nova-planner-v2';
+const CACHE_NAME = 'nova-planner-v3';
 const urlsToCache = [
   '/Nova-AI-Planer/',
   '/Nova-AI-Planer/nova-192.png',
