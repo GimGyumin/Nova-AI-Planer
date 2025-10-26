@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Type } from "@google/genai";
 import './index.css';
+import ResearchReflectionForm from './ResearchReflectionForm';
 
 // --- PWA 유틸리티 함수 ---
 const isMobile = () => {
@@ -2131,4 +2132,10 @@ const AlertModal: React.FC<{ title: string; message: string; onConfirm: () => vo
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(<React.StrictMode><App /></React.StrictMode>);
+
+// If URL hash is #research-log, render the standalone research form (protected)
+if (window.location.hash === '#research-log') {
+    root.render(<React.StrictMode><ResearchReflectionForm /></React.StrictMode>);
+} else {
+    root.render(<React.StrictMode><App /></React.StrictMode>);
+}
