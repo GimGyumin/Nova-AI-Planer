@@ -1,0 +1,51 @@
+/* index.css - Nova-AI-Planer 기본 스타일 (최소 버전)
+   실제 앱에서는 추가적인 스타일이 필요할 수 있습니다. */
+
+body {
+  margin: 0;
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', Arial, sans-serif;
+  background: #f7f7fa;
+  color: #222;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+/* 기본 버튼 스타일 */
+button {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:active {
+  background: #f0f0f0;
+}
+
+/* 간단한 모달 스타일 예시 */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  max-width: 400px;
+  width: 100%;
+}
