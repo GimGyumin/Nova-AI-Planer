@@ -1,4 +1,22 @@
 // research.js — standalone research logger script
+import { initializeApp } from "firebase/app";
+import { getFirestore, addDoc, collection, serverTimestamp } from "firebase/firestore";
+
+// Firebase config (from user)
+const firebaseConfig = {
+  apiKey: "AIzaSyAYOQ9Npqhf6AW6qq32rrvtw1F1q7vuUaM",
+  authDomain: "nove-research-data.firebaseapp.com",
+  projectId: "nove-research-data",
+  storageBucket: "nove-research-data.firebasestorage.app",
+  messagingSenderId: "777873062473",
+  appId: "1:777873062473:web:fde24fe43e75d7d0875d98",
+  measurementId: "G-9C0KKVETT2"
+};
+let db = null;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (e) { console.error('Firebase init error', e); }
 const STORAGE_KEY = 'nova-research-logs-v1';
 
 const form = document.getElementById('logForm');
@@ -104,8 +122,11 @@ form.addEventListener('submit', (e)=>{
   form.reset();
 });
 
+
 document.getElementById('exportBtn').addEventListener('click', ()=>{
   const logs = loadLogs();
+  // nova_data가 없으면 추가
+  logs.forEach(l => { if (!l.nova_data) l.nova_data = getAllNovaData(); });
   const blob = new Blob([JSON.stringify(logs, null, 2)], {type:'application/json;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -124,16 +145,46 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
   statusEl.textContent = '로그가 삭제되었습니다.';
 });
 
+
 document.getElementById('downloadCSV').addEventListener('click', ()=>{
   const logs = loadLogs();
   if(!logs.length) return alert('내보낼 로그가 없습니다.');
-  const header = ['date','task','completed','delay_minutes','delay_desc','focus','fatigue','notes','created_at'];
-  const rows = logs.map(l => header.map(h => `"${(l[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+  // nova_data가 없으면 추가
+  logs.forEach(l => { if (!l.nova_data) l.nova_data = getAllNovaData(); });
+  const header = ['date','task','completed','delay_minutes','delay_desc','focus','fatigue','notes','created_at','nova_data'];
+  const rows = logs.map(l => header.map(h => `"${(h==='nova_data'?JSON.stringify(l[h]||{}):(l[h]||'')).toString().replace(/"/g,'""')}"`).join(','));
   const csv = [header.join(','), ...rows].join('\n');
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = `nova_research_logs_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 });
+
+// 클라우드 동기화 버튼 및 업로드 함수 추가
+const cloudBtn = document.createElement('button');
+cloudBtn.textContent = '클라우드 동기화';
+cloudBtn.style.marginLeft = '8px';
+cloudBtn.onclick = async function(){
+  if (!db) return alert('Firebase 초기화 오류');
+  const logs = loadLogs();
+  if (!logs.length) return alert('업로드할 로그가 없습니다.');
+  cloudBtn.disabled = true;
+  cloudBtn.textContent = '업로드 중...';
+  let ok = 0, fail = 0;
+  for (const l of logs) {
+    try {
+      await addDoc(collection(db, 'research_logs'), {
+        ...l,
+        uploaded_at: serverTimestamp()
+      });
+      ok++;
+    } catch(e){
+      fail++;
+    }
+  }
+  cloudBtn.textContent = `업로드 완료 (성공:${ok}, 실패:${fail})`;
+  setTimeout(()=>{cloudBtn.textContent='클라우드 동기화';cloudBtn.disabled=false;}, 3000);
+};
+document.getElementById('exportBtn').parentElement.appendChild(cloudBtn);
 
 // initialize default date to today
 document.getElementById('date').value = new Date().toISOString().slice(0,10);
