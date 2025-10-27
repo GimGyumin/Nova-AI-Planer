@@ -24,6 +24,7 @@
   <div class="container">
     <h1>Nova — Research Logger</h1>
     <p class="note">이 페이지는 앱과 완전히 분리된 연구용 데이터 수집 도구입니다. 모든 기록은 브라우저 로컬에 저장되며, 원할 때 JSON으로 내보낼 수 있습니다.</p>
+    <div style="margin-top:8px;margin-bottom:12px"><a href="/Nova-AI-Planer/" style="color:#2563eb;text-decoration:underline">← 사이트로 돌아가기</a></div>
 
     <form id="logForm">
       <div class="row">
@@ -78,6 +79,21 @@
       <thead><tr><th>날짜</th><th>과제</th><th>완료</th><th>지연(분)</th><th>집중</th><th>피로</th><th>메모</th></tr></thead>
       <tbody></tbody>
     </table>
+    <div style="margin-top:18px;font-size:13px;color:#6b7280;text-align:center">© 2025 GimGyuMin</div>
+  </div>
+
+  <!-- Password modal -->
+  <div id="pwModal" style="position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999">
+    <div style="background:#fff;padding:20px;border-radius:8px;max-width:420px;width:90%;text-align:center;font-family:system-ui">
+      <h3 style="margin:0 0 8px">연구용 페이지 접근</h3>
+      <p style="margin:0 0 12px;color:#374151">비밀번호를 입력하세요.</p>
+      <input id="pwInput" type="password" placeholder="비밀번호" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;margin-bottom:12px" />
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button id="pwSubmit" style="padding:8px 12px;border-radius:6px;background:#2563eb;color:#fff;border:none">입력</button>
+        <a href="/Nova-AI-Planer/" style="display:inline-block;padding:8px 12px;border-radius:6px;background:#6b7280;color:#fff;text-decoration:none">취소</a>
+      </div>
+      <div id="pwMsg" style="margin-top:8px;color:#e11d48"></div>
+    </div>
   </div>
 
   <script src="/Nova-AI-Planer/research.js"></script>
