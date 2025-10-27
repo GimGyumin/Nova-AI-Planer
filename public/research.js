@@ -1,7 +1,4 @@
 // research.js — standalone research logger script
-import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection, serverTimestamp } from "firebase/firestore";
-
 // Firebase config (from user)
 const firebaseConfig = {
   apiKey: "AIzaSyAYOQ9Npqhf6AW6qq32rrvtw1F1q7vuUaM",
@@ -14,8 +11,8 @@ const firebaseConfig = {
 };
 let db = null;
 try {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.firestore();
 } catch (e) { console.error('Firebase init error', e); }
 const STORAGE_KEY = 'nova-research-logs-v1';
 
@@ -172,9 +169,9 @@ cloudBtn.onclick = async function(){
   let ok = 0, fail = 0;
   for (const l of logs) {
     try {
-      await addDoc(collection(db, 'research_logs'), {
+      await db.collection('research_logs').add({
         ...l,
-        uploaded_at: serverTimestamp()
+        uploaded_at: firebase.firestore.FieldValue.serverTimestamp()
       });
       ok++;
     } catch(e){
