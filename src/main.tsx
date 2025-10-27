@@ -1212,9 +1212,17 @@ const App: React.FC = () => {
                         <TodoList todos={filteredTodos} onToggleComplete={handleToggleComplete} onDelete={handleDeleteTodo} onEdit={setEditingTodo} onInfo={setInfoTodo} t={t} filter={filter} randomEncouragement={randomEncouragement} isSelectionMode={isSelectionMode} selectedTodoIds={selectedTodoIds} onSelectTodo={handleSelectTodo} />
                     )}
                 </div>
-            </div>
+                </div>
 
-            {isGoalAssistantOpen && <GoalAssistantModal onClose={() => setIsGoalAssistantOpen(false)} onAddTodo={handleAddTodo} onAddMultipleTodos={handleAddMultipleTodos} t={t} language={language} createAI={createAI} />}
+                <footer className="site-footer">
+                    <div className="container footer-container">
+                        <div className="footer-inner">
+                            <a href="/Nova-AI-Planer/research.html" target="_blank" rel="noopener noreferrer">연구용 로그 페이지</a>
+                        </div>
+                    </div>
+                </footer>
+
+                {isGoalAssistantOpen && <GoalAssistantModal onClose={() => setIsGoalAssistantOpen(false)} onAddTodo={handleAddTodo} onAddMultipleTodos={handleAddMultipleTodos} t={t} language={language} createAI={createAI} />}
             {editingTodo && <GoalAssistantModal onClose={() => setEditingTodo(null)} onEditTodo={handleEditTodo} existingTodo={editingTodo} t={t} language={language} createAI={createAI} />}
             {infoTodo && <GoalInfoModal todo={infoTodo} onClose={() => setInfoTodo(null)} t={t} createAI={createAI} />}
             {isSettingsOpen && <SettingsModal 

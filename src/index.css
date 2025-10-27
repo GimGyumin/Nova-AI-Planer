@@ -1549,3 +1549,39 @@ input:checked + .slider:before { -webkit-transform: translateX(20px); -ms-transf
         box-shadow: none;
     }
 }
+
+/* Site Footer */
+.site-footer {
+  margin-top: 20px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border-color);
+  background: transparent;
+}
+.site-footer .footer-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.site-footer a {
+  color: var(--text-secondary-color);
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: background-color 0.12s ease, color 0.12s ease, transform 0.08s ease;
+}
+.site-footer a:hover {
+  background-color: var(--button-bg-color);
+  color: var(--text-color);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .site-footer { padding: 12px 0; }
+  .site-footer a { font-size: 0.9rem; }
+}
