@@ -40,11 +40,27 @@ const ResearchReflectionForm: React.FC = () => {
     try{ initFirebase(); }catch(e){ /* ignore */ }
   }, []);
 
+  // Nova 전체 localStorage 데이터 수집
+  function getAllNovaData() {
+    const result: Record<string, any> = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('nova-')) {
+        try { result[k] = JSON.parse(localStorage.getItem(k) || 'null'); } catch { result[k] = localStorage.getItem(k); }
+      }
+    }
+    return result;
+  }
+
   const saveLogs = (next: LogEntry[]) => { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); setLogs(next); };
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    const entry: LogEntry = { id: String(Date.now()), date, task, completed, delay_desc, delay_minutes, focus, fatigue, notes, created_at: new Date().toISOString() };
+    const entry: LogEntry & { nova_data?: any } = {
+      id: String(Date.now()),
+      date, task, completed, delay_desc, delay_minutes, focus, fatigue, notes, created_at: new Date().toISOString(),
+      nova_data: getAllNovaData()
+    };
     const next = [...logs, entry];
     saveLogs(next);
     // If cloudSave enabled, attempt upload (fire-and-forget with feedback)

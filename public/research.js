@@ -67,6 +67,19 @@ function renderTable(){
 
 function escapeHtml(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
+
+// Nova 전체 localStorage 데이터 수집
+function getAllNovaData() {
+  const result = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('nova-')) {
+      try { result[k] = JSON.parse(localStorage.getItem(k)); } catch { result[k] = localStorage.getItem(k); }
+    }
+  }
+  return result;
+}
+
 form.addEventListener('submit', (e)=>{
   e.preventDefault();
   const data = {
@@ -78,7 +91,8 @@ form.addEventListener('submit', (e)=>{
     focus: parseInt(document.getElementById('focus').value||'0',10) || 0,
     fatigue: parseInt(document.getElementById('fatigue').value||'0',10) || 0,
     notes: document.getElementById('notes').value.trim(),
-    created_at: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    nova_data: getAllNovaData()
   };
 
   const logs = loadLogs();
