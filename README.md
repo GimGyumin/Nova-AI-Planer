@@ -22,3 +22,17 @@ https://gimgyumin.github.io/Nova-AI-Planer/
 - 로컬 저장(localStorage)에 분리 저장
 - JSON/CSV로 내보내기 및 전체 삭제
 
+Firebase(선택) 설정 — 클라우드 저장
+---------------------------------
+클라우드에 로그를 백업하려면 Firebase Firestore를 사용하도록 구성할 수 있습니다. 로컬 저장은 기본이며, 리서치 폼에서 "클라우드 저장" 옵션을 켜면 Firestore로 업로드합니다.
+
+환경 변수 (Vite 사용)
+- 프로젝트 루트에 `.env` 파일을 만들고 아래 값을 설정하세요. 실제 값은 Firebase 콘솔에서 확인합니다.
+
+VITE_FIREBASE_API_KEY=your_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+
+설정 후 로컬 개발 서버를 재시작하세요 (`npm run dev`). 배포 시에는 GitHub Actions/CI에 위 환경변수를 안전하게 설정해야 합니다.
+
+

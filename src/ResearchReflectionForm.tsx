@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { initFirebase, saveLogToFirestore } from './firebase';
 
 type LogEntry = {
   id: string;
@@ -20,6 +21,8 @@ const ResearchReflectionForm: React.FC = () => {
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [pw, setPw] = useState('');
   const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [cloudSave, setCloudSave] = useState<boolean>(false);
+  const [cloudStatus, setCloudStatus] = useState<string>('');
 
   // form state
   const [date, setDate] = useState<string>(new Date().toISOString().slice(0,10));
@@ -32,6 +35,10 @@ const ResearchReflectionForm: React.FC = () => {
   const [notes, setNotes] = useState('');
 
   useEffect(()=>{ const raw = localStorage.getItem(STORAGE_KEY); if(raw) setLogs(JSON.parse(raw)); }, []);
+  useEffect(()=>{
+    // Try to initialize firebase (noop if env not set)
+    try{ initFirebase(); }catch(e){ /* ignore */ }
+  }, []);
 
   const saveLogs = (next: LogEntry[]) => { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); setLogs(next); };
 
@@ -40,6 +47,19 @@ const ResearchReflectionForm: React.FC = () => {
     const entry: LogEntry = { id: String(Date.now()), date, task, completed, delay_desc, delay_minutes, focus, fatigue, notes, created_at: new Date().toISOString() };
     const next = [...logs, entry];
     saveLogs(next);
+    // If cloudSave enabled, attempt upload (fire-and-forget with feedback)
+    if (cloudSave) {
+      setCloudStatus('업로드 중...');
+      saveLogToFirestore('research_logs', entry)
+        .then(res => {
+          setCloudStatus(`업로드 성공 (id: ${res.id})`);
+          setTimeout(()=>setCloudStatus(''),3000);
+        })
+        .catch(err => {
+          console.error(err);
+          setCloudStatus('업로드 실패 (환경변수/네트워크 확인)');
+        });
+    }
     // reset some fields
     setTask(''); setDelayDesc(''); setDelayMinutes(0); setNotes('');
     alert('저장되었습니다.');
@@ -95,11 +115,15 @@ const ResearchReflectionForm: React.FC = () => {
           <input type="number" min={1} max={5} placeholder="피로감(1-5)" value={fatigue} onChange={e=>setFatigue(parseInt(e.target.value||'0',10)||0)} style={{width:160}} />
         </div>
         <textarea placeholder="기타 관찰 / Nova 사용 여부" value={notes} onChange={e=>setNotes(e.target.value)} rows={2} />
-        <div style={{display:'flex',gap:8}}>
+        <div style={{display:'flex',gap:8,alignItems:'center'}}>
           <button type="submit">저장</button>
           <button type="button" onClick={handleExportJSON} className="secondary">JSON 내보내기</button>
           <button type="button" onClick={handleExportCSV} className="secondary">CSV 내보내기</button>
           <button type="button" onClick={handleClearAll} className="secondary">전체 삭제</button>
+          <label style={{marginLeft:8,fontSize:13}}>
+            <input type="checkbox" checked={cloudSave} onChange={e=>setCloudSave(e.target.checked)} /> 클라우드 저장
+          </label>
+          {cloudStatus && <div style={{marginLeft:8,color:'#374151'}}>{cloudStatus}</div>}
         </div>
       </form>
 
